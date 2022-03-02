@@ -1,0 +1,25 @@
+p {
+  color: black;
+}
+
+.emoji {
+  letter-spacing: 20px !important;
+  font-size: 2em !important;
+  text-align: left !important;
+}
+
+.rg {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.lg {
+  text-align: left;
+}
+
+unicode-emoji-picker {
+  --min-width: 15.3em; /* 6 emojis wide */
+  --min-height: 11.5em; /* 4 emojis tall */
+  --max-width: 19.3em; /* 11 emojis wide */
+  --max-height: 11.5em; /* 10 emojis tall */
+}
