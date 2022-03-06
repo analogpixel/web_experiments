@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title></title>
+    <script src="masonry.pkgd.min.js"></script>
+
+    <style>
+
+body {
+  background: #eee;
+}
+
+.grid-item { 
+  width: 250px; 
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+    img {
+      width: 250px;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="grid-item">
+        <img src="post_pattern_dsl_logo.png">
+        <div>This is the title</div>
+        <div>This is the content of the post and can go on and on and on</div>
+      </div>
+      <div class="grid-item">...</div>
+      <div class="grid-item">...</div>
+      <div class="grid-item">...</div>
+      <div class="grid-item">...</div>
+      <div class="grid-item">...</div>
+    </div>
+
+    <script>
+      // wait for all images to load, and then setup the grid
+      Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
+              var elem = document.querySelector('.grid');
+              var msnry = new Masonry( elem, {
+                      // options
+                      itemSelector: '.grid-item',
+                      columnWidth: 250,
+                      gutter: 10,
+                      horizontalOrder: true
+                    });
+            });
+    </script>
+  </body>
+</html>
