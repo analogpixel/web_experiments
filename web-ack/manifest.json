@@ -1,0 +1,29 @@
+{
+
+  "manifest_version": 2,
+  "name": "web-ack",
+  "version": "1.0",
+
+  "description": "Acknoledge when you brain wants more interent",
+
+  "icons": {
+    "48": "icons/web-ack-48.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/web-ack-48.png",
+    "default_title": "web-ack",
+    "default_popup": "popup/pop.html"
+  },
+
+  "background": {
+    "scripts": ["popup/pop.js"]
+  }
+    
+}
+
