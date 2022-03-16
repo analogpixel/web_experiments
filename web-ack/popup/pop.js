@@ -8,14 +8,16 @@ var global_data;
 function init() {
 
   loadNotes();
-
+  document.getElementById("web-ack-text").focus();
   document.getElementById("web-ack-button").addEventListener("click", function() {
-  var text = document.getElementById("web-ack-text").value;
-  global_data.push(text);
-
+    var text = document.getElementById("web-ack-text").value;
+    global_data.unshift( text );
+    
     //  browser.storage.sync.set({ web-ack-counter: 1 });
-  storeNote("hello", global_data);
-  console.log("gd:", global_data);  
+    storeNote("hello", global_data);
+    console.log("gd:", global_data);  
+    document.getElementById("web-ack-past").innerHTML = global_data.join("<br>");
+    window.close();
   });
 }
 
@@ -24,14 +26,14 @@ function onError(error) {
 }
 
 function loadNotes() {
-  var gettingItem = browser.storage.local.get({hello: ['default']} );
+  var gettingItem = browser.storage.local.get({hello: ['<br>']} );
 
   gettingItem.then(
-  //(result) => { document.getElementById("web-ack-counter").innerHTML = result['hello'];},
-  (result) => { global_data = result['hello'];
-  document.getElementById("web-ack-counter").innerHTML = result['hello'];
-  },
-  (result) => { console.log("error loading data"); }
+    //(result) => { document.getElementById("web-ack-counter").innerHTML = result['hello'];},
+    (result) => { global_data = result['hello'];
+      document.getElementById("web-ack-past").innerHTML = result['hello'].join("<br>");
+    },
+    (result) => { console.log("error loading data"); }
   );
 }
 
