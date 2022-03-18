@@ -19,16 +19,16 @@ rain_slider.oninput = brown_slider.oninput = white_slider.oninput = pink_slider.
     if (obj.stopped) {
       obj.start();
     }
-    obj.volume.value = map( this.value, 1, 100, -15,15);
+    obj.volume.value = map( this.value, 1, 100, -40,15);
     obj.stopped = false;
   }
 }
 
 const rain = new Tone.Player("rain.mp3").toDestination();
 rain.loop = true;
-const brown = new Tone.Noise({ volume: -10, type: "brown" }).toDestination();
-const white = new Tone.Noise({ volume: -10, type: "white" }).toDestination();
-const pink = new Tone.Noise({ volume: -10, type: "pink" }).toDestination();
+const brown = new Tone.Noise({ volume: -40, type: "brown" }).toDestination();
+const white = new Tone.Noise({ volume: -40, type: "white" }).toDestination();
+const pink = new Tone.Noise({ volume: -40, type: "pink" }).toDestination();
 
 rain.stopped = brown.stopped = white.stopped = pink.stopped = true;
 /*
