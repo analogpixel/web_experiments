@@ -26,8 +26,6 @@ rain_slider.oninput = brown_slider.oninput = white_slider.oninput = pink_slider.
 
 const rain = new Tone.Player("rain.mp3").toDestination();
 rain.loop = true;
-rain.fadeOut = 4;
-rain.fadeIn = 2;
 const brown = new Tone.Noise({ volume: -10, type: "brown" }).toDestination();
 const white = new Tone.Noise({ volume: -10, type: "white" }).toDestination();
 const pink = new Tone.Noise({ volume: -10, type: "pink" }).toDestination();
