@@ -1,0 +1,23 @@
+.gui_container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.gui_label {
+  margin-right: 10px;
+  margin-left: 10px;
+  color: #f2f6f5;
+  grid-column: 1;
+  font-size: 0.8em;
+}
+
+.gui_element {
+  grid-column: 2;
+  margin: 1px;
+}
+
+input[type=text] {
+  width: 100px
+  
+}
+

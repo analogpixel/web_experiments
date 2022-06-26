@@ -1,0 +1,85 @@
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #222;
+}
+
+a {
+  color: #f2f6f5;
+}
+
+@keyframes grow {
+  0% {background: #5d84a6; transform: scale(.5, .5);}
+  100% {background: #5d84a6; transform: scale(2, 2);}
+}
+
+
+@keyframes shrink {
+  0% {background: #5d84a6; transform: scale(2, 2);}
+  100% {background: #5d84a6; transform: scale(.5, .5);}
+}
+
+#circle {
+  position: fixed; /* or fixed */
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.circle_animation {
+  animation-name: grow;
+  animation-duration: 10s;
+  background-color: #444;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+#mySideBar {
+  width: 0px;
+  height: 100vh;
+} 
+#mySidebar.toggled {
+  background: #555;
+  width: 250px;
+  height: 100vh;
+}
+
+{
+// #574f7d
+// #4f3a65
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main.toggled {
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left: 250px;
+}
+
+#main {
+  margin-left: 0px;
+}
+
