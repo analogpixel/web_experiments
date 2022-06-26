@@ -1,0 +1,26 @@
+{
+
+  "manifest_version": 2,
+  "name": "web-rate",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+
+  "description": "Rate how interesting a website is",
+
+  "icons": {
+    "48": "check.png"
+  },
+
+  "browser_action": {
+    "default_icon": "check.png",
+    "default_title": "web-rate",
+    "default_popup": "web-rate.html"
+  }
+
+}
+
