@@ -10,10 +10,32 @@
     "tabs"
   ],
 
+"commands": {
+  "toggle-nextpage": {
+    "suggested_key": {
+      "default": "Ctrl+Shift+Y"
+    },
+    "description": "Send a 'toggle-feature' event"
+  },
+  "toggle-comments": {
+    "suggested_key": {
+      "default": "Ctrl+Shift+U"
+    },
+    "description": "Show the comments"
+  }
+
+},
+
   "description": "Rate how interesting a website is",
 
   "icons": {
     "48": "check.png"
+  },
+
+  "background": {
+    "scripts": [
+      "keys.js"
+    ]
   },
 
   "browser_action": {
