@@ -13,13 +13,15 @@
 "commands": {
   "toggle-nextpage": {
     "suggested_key": {
-      "default": "Ctrl+Shift+Y"
+      // "default": "Ctrl+Shift+Y"
+      "default": "F8"
     },
-    "description": "Send a 'toggle-feature' event"
+    "description": "next page"
   },
   "toggle-comments": {
     "suggested_key": {
-      "default": "Ctrl+Shift+U"
+      // "default": "Ctrl+Shift+U"
+      "default": "F9"
     },
     "description": "Show the comments"
   }

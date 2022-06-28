@@ -10,20 +10,14 @@ var current = 0;
 
 async function set_slider() {
   // console.log("Set sliders called");
-  url =  (await browser.tabs.query({currentWindow: true, active: true}))[0].url;
-  ratings =  (await browser.storage.local.get("ratings"));
+  // var url =  (await browser.tabs.query({currentWindow: true, active: true}))[0].url;
+  var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
+  var rating =  (await browser.storage.local.get())[current_id];
 
-  if ('ratings' in ratings ) {
-    ratings =  ratings['ratings'];
-    // console.log("set ratings to:", ratings);
+  if (rating === false) {
+    v = 0;
   } else {
-    ratings = {}
-  }
-
-  // console.log("Loaded:", ratings);
-  var v = 1;
-  if ( url in ratings ) {
-    v = ratings[url];
+    v = rating;
   }
 
   document.getElementById("interesting").value = v;
@@ -36,20 +30,20 @@ function onError(error) {
 
 // nc -l -k localhost 8080
 async function dumpData() {
-  ratings =  (await browser.storage.local.get("ratings"))['ratings'];
+  ratings =  (await browser.storage.local.get());
   fetch("http://localhost:8080", {method: "POST", body: JSON.stringify( ratings )} );
-  Object.keys(ratings).forEach(k => { console.log(k); });
+  //Object.keys(ratings).forEach(k => { console.log(k); });
+  console.log(ratings);
 }
 
 async function storeUrl(rating) {
-  var url = await browser.tabs.query({currentWindow: true, active: true});
-  url = url[0].url;
+  // var url = await browser.tabs.query({currentWindow: true, active: true});
+  // url = url[0].url;
+  //ratings[url] = rating;
 
-  ratings[url] = rating;
-
-  console.log("Store:", url);
-  // console.log("ratings to store:", ratings);
-  var storingNote = browser.storage.local.set({ratings,ratings});
+  var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
+  var v = parseInt(document.getElementById("interesting").value) ;
+  var storingNote = browser.storage.local.set({[current_id]: v});
   storingNote.then(() => {
     // console.log("Note stored");
   }, onError);
@@ -57,12 +51,6 @@ async function storeUrl(rating) {
 
 // set the inital slider value
 set_slider();
-
-window.addEventListener("matt", (e) => { console.log("hello from here",e) });
-
-document.getElementById("get_news").addEventListener("click", function() {
-  load_next();
-});
 
 document.getElementById("dump_data").addEventListener("click", function() {
   dumpData();
