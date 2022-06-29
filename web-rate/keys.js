@@ -1,6 +1,7 @@
 var news = [];
 var current = [];
 var ratings =[];
+var lastrefresh=0;
 
 function set_url(id, rating=0) {
   browser.storage.local.set( {[id]: rating} );
@@ -21,6 +22,8 @@ async function get_url(id) {
 browser.storage.local.get().then( r=> console.log(r) );
 
 function get_news() {
+  console.log("Refresh the news");
+  lastrefresh = Math.round(Date.now() / 1000);
   fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
     .then( response => response.json())
     .then(data => {news = data; load_next()});
@@ -46,7 +49,8 @@ function load_comments() {
 
 async function load_next() {
 
-  if (news.length == 0) {
+  // refresh if no news, or haven't refreshed in 10minutes
+  if  ( news.length ==0 || ((Math.round(Date.now() / 1000) )-lastrefresh > 60 * 10 ) ) {
     get_news();
     return;
   }
