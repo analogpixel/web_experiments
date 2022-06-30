@@ -2,24 +2,25 @@ var news = [];
 var current = [];
 var ratings =[];
 var lastrefresh=0;
+var seen = [];
 
-function set_url(id, rating=0) {
-  browser.storage.local.set( {[id]: rating} );
+function set_url(id) {
+  seen.push(id)
+  //browser.storage.local.set( {[id]: rating} );
+  //browser.storage.local.set( {current_id: id});
   browser.storage.local.set( {current_id: id});
+  browser.storage.local.set( {seen: seen} );
 }
 
 async function get_url(id) {
-  var data = await browser.storage.local.get();
-
-  if (id in data) {
-    return data[id];
-  } else {
-    return false;
-  }
+  var data = await browser.storage.local.get('seen');
+  // if seen hasn't been set yet, set to []
+  seen = data['seen'] || [];
+  return seen.includes(id);
 
 }
 
-browser.storage.local.get().then( r=> console.log(r) );
+// browser.storage.local.get().then( r=> console.log(r) );
 
 function get_news() {
   console.log("Refresh the news");
@@ -37,6 +38,23 @@ async function load_page(json) {
     // no url means this is local to hacker news, so just go to the comments
     var url_to_load = "https://news.ycombinator.com/item?id=" + json['id'];
   }
+
+  var data = (await browser.storage.local.get('block_list'))['block_list'] || "";
+  
+  data = data.trim().split('\n') || [];
+
+  if (data != "") {
+    data.forEach( d => { 
+    if (url_to_load.includes(d)) {
+      console.log("blocking ", url_to_load, " based on:", d);
+      load_next();
+    }
+    } );
+  }
+  console.log("block list is:", data);
+
+  // the the initial value to 0
+  browser.storage.local.set({[url_to_load]: 0}).then( console.log("set")) ;
 
   browser.tabs.update({url: url_to_load})
     .then( a => { window.close()}, a => console.log("error") );

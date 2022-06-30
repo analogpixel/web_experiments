@@ -10,18 +10,22 @@ var current = 0;
 
 async function set_slider() {
   // console.log("Set sliders called");
-  // var url =  (await browser.tabs.query({currentWindow: true, active: true}))[0].url;
-  var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
-  var rating =  (await browser.storage.local.get())[current_id];
+  var url =  (await browser.tabs.query({currentWindow: true, active: true}))[0].url;
+  //var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
+  // var rating =  (await browser.storage.local.get())[url];
+  var rating =  (await browser.storage.local.get() )[url];
+  // var rating =  (await browser.storage.local.get())[current_id];
 
-  if (rating === false) {
-    v = 0;
-  } else {
-    v = rating;
-  }
+  // if rating not set, then return 0
+  v = rating || 0;
+
+  // bad me, setting textarea here also
+  var block_list =  (await browser.storage.local.get() )["block_list"];
+  console.log("block list is:", block_list);
 
   document.getElementById("interesting").value = v;
   document.getElementById('slider_val').innerHTML = v;
+  document.getElementById('block_list').value = block_list;
 }
 
 function onError(error) {
@@ -32,21 +36,18 @@ function onError(error) {
 async function dumpData() {
   ratings =  (await browser.storage.local.get());
   fetch("http://localhost:8080", {method: "POST", body: JSON.stringify( ratings )} );
-  //Object.keys(ratings).forEach(k => { console.log(k); });
   console.log(ratings);
 }
 
 async function storeUrl(rating) {
-  // var url = await browser.tabs.query({currentWindow: true, active: true});
-  // url = url[0].url;
+  var url = await browser.tabs.query({currentWindow: true, active: true});
+  url = url[0].url;
   //ratings[url] = rating;
-
-  var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
+  // var current_id =  (await browser.storage.local.get("current_id"))['current_id'];
   var v = parseInt(document.getElementById("interesting").value) ;
-  var storingNote = browser.storage.local.set({[current_id]: v});
-  storingNote.then(() => {
-    // console.log("Note stored");
-  }, onError);
+  //var storingNote = browser.storage.local.set({[current_id]: v});
+  console.log("Set", url, v);
+  browser.storage.local.set({[url]: v}).then(a => console.log(a));
 }
 
 // set the inital slider value
@@ -64,5 +65,10 @@ document.getElementById("interesting").addEventListener("change", function() {
   var v = this.value;
   storeUrl(v);
   window.close();
+});
+
+document.getElementById("block_list").addEventListener("change", function() {
+  var v = this.value;
+  browser.storage.local.set({block_list: v});
 });
 

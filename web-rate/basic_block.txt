@@ -1,0 +1,15 @@
+cnn.com
+reuters.com
+google.com
+medium.com
+www.cbc.ca
+businessinsider.com
+theintercept
+www.ycombinator.com/companies
+vanityfair.com
+smartcompany.com
+bvp.com
+www.bbc.com
+www.cnbc.com
+nltimes.nl
+www.nbcnews.com
